@@ -9,8 +9,8 @@ class Calculator:
         # 계산식을 표시할 엔트리 위젯 생성
         self.expression = tk.StringVar()
         self.expression.set("")
-        self.entry = tk.Entry(self.window, textvariable=self.expression, font=("Helvetica", 20), justify="right")
-        self.entry.grid(row=0, column=0, columnspan=4)
+        self.entry = tk.Entry(self.window, textvariable=self.expression, font=("Helvetica", 20), justify="right", width=20, relief="groove", borderwidth=5)
+        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
         # 버튼 위젯 생성
         buttons = [
@@ -27,7 +27,7 @@ class Calculator:
             row = button[1]
             column = button[2]
             colspan = button[3] if len(button) > 3 else 1
-            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text)).grid(row=row, column=column, columnspan=colspan)
+            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text), width=5, height=2, relief="groove", borderwidth=3).grid(row=row, column=column, columnspan=colspan, padx=5, pady=5)
 
     # 버튼 클릭 이벤트 처리 함수
     def on_button_click(self, text):
