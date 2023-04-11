@@ -27,7 +27,11 @@ class Calculator:
             row = button[1]
             column = button[2]
             colspan = button[3] if len(button) > 3 else 1
-            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text), width=5, height=2, relief="groove", borderwidth=3).grid(row=row, column=column, columnspan=colspan, padx=5, pady=5)
+            bg_color = 'pink' if text in ['/', '*', '-', '+'] else 'white'  # 연산자는 빨간색으로 표시
+            fg_color = 'white' if text in ['/', '*', '-', '+'] else 'black'  # 연산자는 흰색 글자로 표시
+            width = 5 if text == 'C' else 10  # 리셋 버튼의 너비를 더 크게 설정
+            height = 2 if text == 'C' else 4  # 리셋 버튼의 높이를 더 크게 설정
+            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text), width=width, height=height, relief="groove", borderwidth=3, bg=bg_color, fg=fg_color).grid(row=row, column=column, columnspan=colspan, padx=5, pady=5)
 
         # 키보드 이벤트 바인딩
         self.window.bind('<Key>', self.on_key_press)
