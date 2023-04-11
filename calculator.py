@@ -18,6 +18,7 @@ class Calculator:
             ['4', 2, 0], ['5', 2, 1], ['6', 2, 2], ['*', 2, 3],
             ['1', 3, 0], ['2', 3, 1], ['3', 3, 2], ['-', 3, 3],
             ['0', 4, 0], ['.', 4, 1], ['=', 4, 2], ['+', 4, 3],
+            ['C', 5, 0, 2, 1],  # 리셋 버튼 추가
         ]
 
         # 버튼 생성 및 이벤트 처리 함수 연결
@@ -25,7 +26,8 @@ class Calculator:
             text = button[0]
             row = button[1]
             column = button[2]
-            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text)).grid(row=row, column=column)
+            colspan = button[3] if len(button) > 3 else 1
+            tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text)).grid(row=row, column=column, columnspan=colspan)
 
     # 버튼 클릭 이벤트 처리 함수
     def on_button_click(self, text):
@@ -36,6 +38,8 @@ class Calculator:
                 self.expression.set(result)
             except ZeroDivisionError:
                 self.expression.set("Error")
+        elif text == 'C':  # 리셋 버튼 처리
+            self.expression.set("")
         else:
             self.expression.set(current_expression + text)
 
