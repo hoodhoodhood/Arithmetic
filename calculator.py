@@ -29,6 +29,10 @@ class Calculator:
             colspan = button[3] if len(button) > 3 else 1
             tk.Button(self.window, text=text, font=("Helvetica", 20), command=lambda text=text: self.on_button_click(text), width=5, height=2, relief="groove", borderwidth=3).grid(row=row, column=column, columnspan=colspan, padx=5, pady=5)
 
+        # 키보드 이벤트 바인딩
+        self.window.bind('<Key>', self.on_key_press)
+        self.window.focus_set()
+
     # 버튼 클릭 이벤트 처리 함수
     def on_button_click(self, text):
         current_expression = self.expression.get()
@@ -42,6 +46,15 @@ class Calculator:
             self.expression.set("")
         else:
             self.expression.set(current_expression + text)
+
+    # 키보드 이벤트 처리 함수
+    def on_key_press(self, event):
+        if event.char.isdigit() or event.char in ['+', '-', '*', '/', '.', '=']:
+            self.on_button_click(event.char)
+        elif event.char == '\r':
+            self.on_button_click('=')
+        elif event.char == '\x08':
+            self.on_button_click('C')
 
 # 계산기 인스턴스 생성 및 실행
 calculator = Calculator()
